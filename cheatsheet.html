@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet — Claude Associate PM Prep</title>
+<link rel="stylesheet" href="shared/styles.css">
+<script src="data/frameworks.js"></script>
+<style>
+  .framework-header-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .framework-meta { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .def-item { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
+  .def-item:last-child { border-bottom: none; }
+  .def-term { font-weight: 700; font-size: 13.5px; color: var(--text-bright); min-width: 220px; flex-shrink: 0; }
+  .def-body { font-size: 13px; color: var(--text); line-height: 1.55; flex: 1; }
+  .expand-all-btn { font-size: 12px; color: var(--accent); cursor: pointer; font-weight: 600; background: none; border: none; padding: 0; }
+  .expand-all-btn:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand"><span>Claude</span> Associate — PM Prep</span>
+  <div class="nav-links">
+    <a href="index.html">Hub</a>
+    <a href="overview.html">Overview</a>
+    <a href="cheatsheet.html" class="active">Cheat Sheet</a>
+    <a href="syntheses.html">Syntheses</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="exam.html">Exam Trainer</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-text">
+    <div class="eyebrow">Cheat Sheet</div>
+    <h1>Frameworks &amp; Definitions</h1>
+    <p>43 named frameworks with components and exam notes. Filter by module, expand for detail.</p>
+  </div>
+  <div class="page-header-actions">
+    <button class="btn-secondary" onclick="expandAll()">Expand all</button>
+    <button class="btn-primary" onclick="exportPDF()">↓ Export PDF</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('frameworks', this)">Frameworks (43)</div>
+    <div class="tab" onclick="switchTab('definitions', this)">Key Definitions</div>
+  </div>
+
+  <!-- FRAMEWORKS TAB -->
+  <div class="tab-panel active" id="tab-frameworks">
+    <div class="filter-row" id="fw-filter">
+      <div class="filter-chip active" data-m="0" onclick="filterFW(this)">All modules</div>
+      <div class="filter-chip" data-m="1" onclick="filterFW(this)">M1 · Selection</div>
+      <div class="filter-chip" data-m="2" onclick="filterFW(this)">M2 · Prompting</div>
+      <div class="filter-chip" data-m="3" onclick="filterFW(this)">M3 · Evaluation</div>
+      <div class="filter-chip" data-m="4" onclick="filterFW(this)">M4 · Workflow</div>
+      <div class="filter-chip" data-m="5" onclick="filterFW(this)">M5 · Config</div>
+      <div class="filter-chip" data-m="6" onclick="filterFW(this)">M6 · Governance</div>
+      <div class="filter-chip" data-m="7" onclick="filterFW(this)">M7 · Debug</div>
+      <div class="filter-chip" data-m="8" onclick="filterFW(this)">M8 · Summary</div>
+    </div>
+    <div id="fw-list"></div>
+  </div>
+
+  <!-- DEFINITIONS TAB -->
+  <div class="tab-panel" id="tab-definitions">
+    <div class="callout callout-blue" style="margin-bottom: 20px;">
+      These key definitions cover the most exam-tested concepts. For the full 55-term glossary with search, see the <a href="glossary.html">Glossary</a> page.
+    </div>
+    <div id="def-list"></div>
+  </div>
+
+</div>
+
+<script src="shared/utils.js"></script>
+<script>
+
+const KEY_DEFINITIONS = [
+  { term: "The Four Decisions", def: "Entry point · Capability layer · Model · Context management. Set before the first prompt — they determine the quality ceiling." },
+  { term: "Project", def: "A persistent workspace. Use when 2 of 3 apply: task recurs / context is stable / format is consistent." },
+  { term: "Skill", def: "Reusable procedure at the account level — not inside a Project. Invoked automatically. Reduces variance, does not eliminate it." },
+  { term: "Code Execution", def: "Sandboxed computation that returns a verified result. The only way to guarantee a correct number." },
+  { term: "5-Component Prompt Stack", def: "Role · Context · Task · Constraints · Output Format. Context is the most commonly missing component." },
+  { term: "Diminishing Returns Signal", def: "When further iteration rounds produce marginal change — the correct signal to stop prompting." },
+  { term: "Task Decomposition", def: "Breaking a multi-step task into ordered steps with checkable intermediate results. The shared foundation step comes first." },
+  { term: "Confident Tone ≠ Accuracy", def: "Claude's fluency is uniform regardless of whether the answer is correct. Tone is never a quality signal." },
+  { term: "Diligence", def: "The competency of owning output before use. Accountability does not transfer to a tool — what you ship, you are answerable for." },
+  { term: "Three Evaluation References", def: "Requirements · Source material · Professional standards. Missing one creates a systematic blind spot." },
+  { term: "Fabricated Specific", def: "A hallucination where Claude produces precise-looking data (stats, citations) that don't exist. The precision is the tell." },
+  { term: "Delegation Criteria", def: "Reversibility · Stakes · Accountability. All three evaluated per step — not inherited from the previous one." },
+  { term: "Defined Gate Formula", def: "Who reviews + what they verify + when it happens. 'Someone will check it' is not a gate." },
+  { term: "Halo Delegation", def: "Auto-delegating a step because the prior step went well. Each step must be evaluated independently." },
+  { term: "Rule–Reference–Procedure Test", def: "Rule → standing instruction. Reference → knowledge base. Procedure → Skill." },
+  { term: "Instruction Precision Test", def: "Would two different people implement this the same way? If not, it fails silently." },
+  { term: "Pairing Rule", def: "A behaviour rule and the facts it acts on belong together. Neither works alone." },
+  { term: "Data Sensitivity Tiers", def: "Green (safe) · Yellow (review first) · Red (stop and escalate). Incognito controls persistence, not compliance." },
+  { term: "Least Privilege", def: "Grant the narrowest access that lets the job get done. Applies to Skills, connectors, and all feature enablement." },
+  { term: "4 Failure Patterns", def: "Under-specification (first response wrong) · Context overload (degrades over time) · Wrong feature/model (repeatable error type) · Stale config ('it used to work')." },
+  { term: "Diagnostic Sequence", def: "Check specification → context → feature/model → configuration → task fit. Step 5 is last — it's the most expensive conclusion." },
+  { term: "AI Fluency Framework", def: "Description (prompt) · Discernment (evaluate) · Diligence (own) · Delegation (govern). Each competency assumes the one before it." },
+];
+
+let activeModuleFilter = 0;
+
+function renderFrameworks() {
+  const list = document.getElementById('fw-list');
+  const filtered = activeModuleFilter === 0
+    ? FRAMEWORKS
+    : FRAMEWORKS.filter(f => f.module === activeModuleFilter);
+
+  if (!filtered.length) {
+    list.innerHTML = '<p style="color:var(--text-dim);padding:20px 0;">No frameworks for this filter.</p>';
+    return;
+  }
+
+  list.innerHTML = filtered.map((f, i) => `
+    <div class="framework-card" id="fw-${i}">
+      <div class="framework-header" onclick="toggleFW('fw-${i}')">
+        <div class="framework-header-left">
+          <div class="framework-title">${f.name}</div>
+          <div class="framework-summary">${f.summary}</div>
+        </div>
+        <div class="framework-meta">
+          <span class="module-badge m${f.module}">M${f.module}</span>
+          <span class="framework-arrow">▾</span>
+        </div>
+      </div>
+      <div class="framework-body">
+        <div class="components">
+          ${f.components.map(c => `
+            <div class="component-row">
+              <div class="component-label">${c.label}</div>
+              <div class="component-desc">${c.desc}</div>
+            </div>`).join('')}
+        </div>
+        ${f.exam_note ? `<div class="exam-note">📌 <strong>Exam note:</strong> ${f.exam_note}</div>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+function renderDefinitions() {
+  const list = document.getElementById('def-list');
+  list.innerHTML = KEY_DEFINITIONS.map(d => `
+    <div class="def-item">
+      <div class="def-term">${d.term}</div>
+      <div class="def-body">${d.def}</div>
+    </div>`).join('');
+}
+
+function toggleFW(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+
+function filterFW(el) {
+  document.querySelectorAll('#fw-filter .filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  activeModuleFilter = parseInt(el.dataset.m);
+  renderFrameworks();
+}
+
+function expandAll() {
+  document.querySelectorAll('.framework-card').forEach(c => c.classList.add('open'));
+}
+
+function switchTab(name, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+function exportPDF() {
+  expandAll();
+  document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'block');
+  window.print();
+  setTimeout(() => {
+    document.querySelectorAll('.tab-panel').forEach(p => p.style.display = '');
+  }, 500);
+}
+
+renderFrameworks();
+renderDefinitions();
+</script>
+</body>
+</html>

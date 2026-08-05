@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Overview — Claude Associate PM Prep</title>
+<link rel="stylesheet" href="shared/styles.css">
+<style>
+  .course-header-inner {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 32px;
+  }
+  .course-header-inner h1 { font-size: 26px; font-weight: 800; color: var(--text-bright); letter-spacing: -0.02em; margin-bottom: 8px; }
+  .course-header-inner p { font-size: 13.5px; color: var(--text-dim); margin-bottom: 16px; }
+  .ai-fluency-strip { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .fluency-pill { background: var(--m1-bg); color: var(--m1); padding: 4px 12px; font-size: 12px; font-weight: 600; border: 1px solid var(--accent-border); }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand"><span>Claude</span> Associate — PM Prep</span>
+  <div class="nav-links">
+    <a href="index.html">Hub</a>
+    <a href="overview.html" class="active">Overview</a>
+    <a href="cheatsheet.html">Cheat Sheet</a>
+    <a href="syntheses.html">Syntheses</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="exam.html">Exam Trainer</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-text">
+    <div class="eyebrow">Course Overview</div>
+    <h1>All 8 Modules at a Glance</h1>
+    <p>Key frameworks, decision models, and concept maps for the Claude Certified Associate Foundation course.</p>
+  </div>
+  <div class="page-header-actions">
+    <button class="btn-primary" onclick="window.print()">↓ Export PDF</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="course-header-inner">
+    <p>Content based on claude.ai features as of June 2026 · Anthropic Claude Associate Blueprint v1.3</p>
+    <div class="ai-fluency-strip">
+      <span class="fluency-pill">D1 Description</span>
+      <span class="fluency-pill">D2 Discernment</span>
+      <span class="fluency-pill">D3 Diligence</span>
+      <span class="fluency-pill">D4 Delegation</span>
+    </div>
+  </div>
+
+  <div class="modules-grid">
+
+    <!-- MODULE 1 -->
+    <div class="module-card border-m1">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m1);">1</div>
+        <div class="title-block">
+          <div class="module-label">Module 1</div>
+          <h2>Product &amp; Model Selection</h2>
+          <div class="tagline">The Four Decisions — set before the first prompt</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-title">Entry Points</div>
+          <div class="decision-grid">
+            <span class="tag tag-purple">Chat</span><div class="decision-desc">One-off interactions. No persistent context. Best for exploratory tasks.</div>
+            <span class="tag tag-blue">Projects</span><div class="decision-desc">Recurs + stable context + consistent format (2 of 3). Persistent workspace.</div>
+            <span class="tag tag-green">Artifacts</span><div class="decision-desc">Deliverable as a separate editable block — documents, reports, code.</div>
+            <span class="tag tag-yellow">Research</span><div class="decision-desc">Deep multi-source synthesis. Paid plans. For current, multi-source investigations.</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">4-Layer Capability Model</div>
+          <div class="decision-grid">
+            <span class="tag tag-purple">Projects</span><div class="decision-desc">Carry context — standing instructions + knowledge base + conversation history</div>
+            <span class="tag tag-blue">Skills</span><div class="decision-desc">Define procedures — account level, reusable, invoked automatically</div>
+            <span class="tag tag-green">Code Exec</span><div class="decision-desc">Verify computations — sandboxed, returns a guaranteed correct result</div>
+            <span class="tag tag-yellow">Memory</span><div class="decision-desc">Persist continuity — facts that carry forward, Project-scoped for isolation</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Model Selection</div>
+          <table class="data-table">
+            <thead><tr><th>Tier</th><th>When to use</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Haiku</strong></td><td>High-volume, structured, clear rubric. Speed + cost efficiency compound.</td></tr>
+              <tr><td><strong>Sonnet</strong></td><td>Default for professional work: drafting, synthesis, analysis.</td></tr>
+              <tr><td><strong>Opus</strong></td><td>Complex judgment, ambiguous multi-layered inputs, high-stakes quality.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="section">
+          <div class="section-title">Context Degradation — 3 Responses</div>
+          <div class="flow-strip">
+            <div class="flow-item">Restart</div><div class="flow-arrow">·</div>
+            <div class="flow-item">Summarise</div><div class="flow-arrow">·</div>
+            <div class="flow-item">Persist to Memory</div>
+          </div>
+        </div>
+        <div class="callout callout-purple" style="margin-top:12px;">
+          <strong>Project Test:</strong> Build a Project when 2 of 3 apply: task recurs · stable context · consistent format. Model tier and time spent are NOT criteria.
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 2 -->
+    <div class="module-card border-m2">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m2);">2</div>
+        <div class="title-block">
+          <div class="module-label">Module 2</div>
+          <h2>Prompting &amp; Task Execution</h2>
+          <div class="tagline">The 5-Component Stack — Description competency</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-title">The 5-Component Prompt Stack</div>
+          <div class="decision-grid">
+            <span class="tag tag-purple">Role</span><div class="decision-desc">Vocabulary, depth, assumptions — e.g. "as a financial analyst"</div>
+            <span class="tag tag-blue">Context</span><div class="decision-desc">Background Claude cannot infer: audience, situation, prior decisions, source material. Most often missing.</div>
+            <span class="tag tag-green">Task</span><div class="decision-desc">The specific action with one primary verb</div>
+            <span class="tag tag-yellow">Constraints</span><div class="decision-desc">Boundaries: length, tone, inclusions, exclusions</div>
+            <span class="tag tag-gray">Format</span><div class="decision-desc">Shape of result: table, list, memo, email</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Diagnostic Iteration</div>
+          <table class="data-table">
+            <thead><tr><th>Symptom</th><th>Root Cause</th><th>Fix</th></tr></thead>
+            <tbody>
+              <tr><td>Generic / off-base</td><td>Thin Context</td><td>Add background</td></tr>
+              <tr><td>Wrong question answered</td><td>Ambiguous Task verb</td><td>Sharpen instruction</td></tr>
+              <tr><td>Wrong length / tone / shape</td><td>Missing Constraint or Format</td><td>Add it</td></tr>
+              <tr><td>Close but one section off</td><td>Partial gap</td><td>Iterate that section only</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="section">
+          <div class="section-title">Strategy by Task Type</div>
+          <table class="data-table">
+            <thead><tr><th>Type</th><th>Tighten</th><th>Loosen</th></tr></thead>
+            <tbody>
+              <tr><td>Analysis</td><td>Criteria, standards, scope</td><td>Phrasing</td></tr>
+              <tr><td>Research</td><td>Question, sources, citations</td><td>Synthesis approach</td></tr>
+              <tr><td>Drafting</td><td>Audience, tone, format</td><td>Word choice</td></tr>
+              <tr><td>Brainstorming</td><td>Goal + guardrails only</td><td>Quantity and direction</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout callout-blue" style="margin-top:12px;">
+          Change ONE component per iteration. Stop when further rounds produce marginal change — diminishing returns is the signal to stop.
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 3 -->
+    <div class="module-card border-m3">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m3);">3</div>
+        <div class="title-block">
+          <div class="module-label">Module 3</div>
+          <h2>Evaluating &amp; Validating Output</h2>
+          <div class="tagline">Discernment + Diligence — you own what you ship</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-title">5 Behavioral Properties of Claude</div>
+          <ul class="rule-list">
+            <li>Responses vary — probability-based, not deterministic</li>
+            <li>Confident tone ≠ accuracy — fluency is uniform regardless of correctness</li>
+            <li>Context is a budget — degrades as sessions grow long</li>
+            <li>Knowledge has a training cutoff — post-cutoff needs a live source</li>
+            <li>Configured procedures still vary — Skills reduce, not eliminate variance</li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="section-title">7 Hallucination Types</div>
+          <div class="decision-grid">
+            <span class="tag tag-red">High risk</span><div class="decision-desc"><strong>Fabricated specifics</strong> — precise-looking stats or citations that don't exist. The precision is the tell.</div>
+            <span class="tag tag-red">High risk</span><div class="decision-desc"><strong>Capability hallucination</strong> — claims to have taken an external action it didn't.</div>
+            <span class="tag tag-yellow">Watch for</span><div class="decision-desc"><strong>Completeness failure</strong> — confident summary masking silence on missing data.</div>
+            <span class="tag tag-yellow">Watch for</span><div class="decision-desc"><strong>Confirmation bias</strong> — output frames evidence to support the premise.</div>
+            <span class="tag tag-gray">Common</span><div class="decision-desc">Plausible-but-unsupported claims · Confident tone masking uncertainty · Internal contradictions (long outputs)</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">4 Risk Thresholds (Diligence)</div>
+          <div class="two-col">
+            <div class="callout callout-red"><strong>Stakes</strong><br>Cost if wrong?</div>
+            <div class="callout callout-red"><strong>Reversibility</strong><br>Can it be undone?</div>
+            <div class="callout callout-yellow"><strong>Audience</strong><br>Who sees it?</div>
+            <div class="callout callout-yellow"><strong>Regulatory</strong><br>Does a rule govern this?</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 4 -->
+    <div class="module-card border-m4">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m4);">4</div>
+        <div class="title-block">
+          <div class="module-label">Module 4</div>
+          <h2>Workflow Integration &amp; Solution Design</h2>
+          <div class="tagline">Delegation mapping — Delegation competency</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-title">Delegation Mapping — 3 Criteria</div>
+          <div class="decision-grid">
+            <span class="tag tag-purple">Reversibility</span><div class="decision-desc">Can this step be undone if the output is wrong?</div>
+            <span class="tag tag-blue">Stakes</span><div class="decision-desc">What is the cost of an error at this step?</div>
+            <span class="tag tag-red">Accountability</span><div class="decision-desc">Who is answerable? Accountability does not delegate.</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">3 Step Classifications</div>
+          <table class="data-table">
+            <thead><tr><th>Classification</th><th>Profile</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><span class="tag tag-green">AI-appropriate</span></td><td>Reversible, low stakes, mechanical</td><td>Extract clauses, classify tickets</td></tr>
+              <tr><td><span class="tag tag-blue">Collaborative</span></td><td>AI drafts, human judges. Gate must be real.</td><td>Draft redline → lawyer reviews</td></tr>
+              <tr><td><span class="tag tag-red">Human-retained</span></td><td>Irreversible, accountability-bearing</td><td>Approve/reject, sign and send</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="section">
+          <div class="section-title">3 Common Mapping Errors</div>
+          <ul class="rule-list">
+            <li><strong>Halo delegation</strong> — prior step went well → next step auto-delegated</li>
+            <li><strong>Collapsing collaborative</strong> — 'AI drafts, human reviews' → review gate never staffed</li>
+            <li><strong>Mapping the tool</strong> — building around features you like, not actual step risk</li>
+          </ul>
+        </div>
+        <div class="callout callout-green" style="margin-top:12px;">
+          <strong>Escalation signal:</strong> When people rely on a Claude-built artifact as infrastructure → escalate to Developer or Architect. Prompt-and-iterate has run its course.
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 5 -->
+    <div class="module-card border-m5">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m5);">5</div>
+        <div class="title-block">
+          <div class="module-label">Module 5</div>
+          <h2>Configuration &amp; Knowledge Management</h2>
+          <div class="tagline">The right home for each type of content</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-title">4 Configuration Mechanisms</div>
+          <table class="data-table">
+            <thead><tr><th>Mechanism</th><th>What goes here</th><th>Where it lives</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Standing Instructions</strong></td><td>Behaviour rules: tone, format defaults, verification habits</td><td>Inside a Project</td></tr>
+              <tr><td><strong>Knowledge Base</strong></td><td>Facts, reference documents, policies</td><td>Inside a Project</td></tr>
+              <tr><td><strong>Skills</strong></td><td>Repeatable multi-step procedures</td><td>Account level — reusable across all Projects</td></tr>
+              <tr><td><strong>Scoped Memory</strong></td><td>Evolving project state: decisions, stakeholder names</td><td>Project-isolated</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="section">
+          <div class="section-title">Instruction Precision Test</div>
+          <div class="two-col">
+            <div class="callout callout-red">
+              <strong>Vague (fails silently)</strong><br>
+              "Make the reports good and accurate."<br>
+              <em style="font-size:11px;">Two people read it differently.</em>
+            </div>
+            <div class="callout callout-green">
+              <strong>Precise (changes output)</strong><br>
+              "For every figure, state its source. Mark unverified figures. Lead with a one-sentence headline."
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Routing Rule</div>
+          <div class="flow-strip">
+            <div class="flow-item">Rule → Instruction</div>
+            <div class="flow-arrow">·</div>
+            <div class="flow-item">Reference → Knowledge Base</div>
+            <div class="flow-arrow">·</div>
+            <div class="flow-item">Procedure → Skill</div>
+          </div>
+        </div>
+        <div class="callout callout-yellow" style="margin-top:12px;">
+          <strong>Monthly maintenance cadence.</strong> Waiting until output quality drops means drift has already reached deliverables. 'It used to work' = stale config.
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 6 -->
+    <div class="module-card border-m6">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m6);">6</div>
+        <div class="title-block">
+          <div class="module-label">Module 6</div>
+          <h2>Governance, Risk &amp; Responsible Use</h2>
+          <div class="tagline">Daily practice — not just audit checkboxes</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-title">3 Use-Case Classifications</div>
+          <div class="decision-grid">
+            <span class="tag tag-green">Fully appropriate</span><div class="decision-desc">Internal FAQ from approved docs, public summaries, formatting tasks</div>
+            <span class="tag tag-yellow">With review</span><div class="decision-desc">Candidate screening, customer responses, analysis feeding decisions. Requires a defined gate.</div>
+            <span class="tag tag-red">Inappropriate</span><div class="decision-desc">Final medical/legal determinations, unreviewed eligibility decisions, autonomous external actions</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Data Sensitivity — Green / Yellow / Red</div>
+          <div class="decision-grid">
+            <span class="tag tag-green">Green</span><div class="decision-desc">Published material, anonymised data, cleared internal docs. Safe to use.</div>
+            <span class="tag tag-yellow">Yellow</span><div class="decision-desc">Internal docs not meant to leave the company, named individuals, unreleased material. Review first.</div>
+            <span class="tag tag-red">Red</span><div class="decision-desc">Regulated data (health/financial/gov), credentials, third-party confidentiality. Stop and escalate.</div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-title">Skill Trust — 3 Checks</div>
+          <ul class="rule-list">
+            <li><strong>Source:</strong> Who published it? Unknown = escalate to org review</li>
+            <li><strong>Reach:</strong> What does it inherit? Skills get full session access — not just the task scope</li>
+            <li><strong>Appropriateness:</strong> Right tool? Or more capability than the task needs?</li>
+          </ul>
+        </div>
+        <div class="callout callout-red" style="margin-top:12px;">
+          <strong>Incognito ≠ compliance.</strong> Incognito controls persistence only. It does not override org data retention. It does not make red-tier data safe to upload.
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 7 -->
+    <div class="module-card border-m7">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m7);">7</div>
+        <div class="title-block">
+          <div class="module-label">Module 7</div>
+          <h2>Troubleshooting &amp; Optimization</h2>
+          <div class="tagline">Cheapest fix first — step 5 is last, never first</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="section">
+          <div class="section-title">4 Root-Cause Failure Patterns</div>
+          <table class="data-table">
+            <thead><tr><th>Pattern</th><th>Signal</th><th>Fix</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Under-specification</strong></td><td>Wrong on first response</td><td>Add missing component(s)</td></tr>
+              <tr><td><strong>Context overload</strong></td><td>Degrades over time in session</td><td>Restart or summarise</td></tr>
+              <tr><td><strong>Wrong feature/model</strong></td><td>Specific, repeatable error type</td><td>Use the right tool</td></tr>
+              <tr><td><strong>Stale configuration</strong></td><td>"It used to work"</td><td>Run M5 maintenance checklist</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="section">
+          <div class="section-title">Diagnostic Sequence — Cheapest First</div>
+          <ol style="padding-left:18px;font-size:12.5px;line-height:2;">
+            <li>Re-read prompt vs. 5 components: under-specified?</li>
+            <li>Check conversation length: context overloaded?</li>
+            <li>Check feature and model: needs Code Execution? Wrong tier?</li>
+            <li>Check configuration: instructions, knowledge, Skills current?</li>
+            <li>Question whether the task is a fit at all (last resort)</li>
+          </ol>
+        </div>
+        <div class="section">
+          <div class="section-title">3 Friction Signals → Fixes</div>
+          <div class="decision-grid">
+            <span class="tag tag-yellow">Repetition</span><div class="decision-desc">Same paste every run → saved context or standing instruction</div>
+            <span class="tag tag-red">Correction</span><div class="decision-desc">Same flaw every output → configuration change</div>
+            <span class="tag tag-blue">Variance</span><div class="decision-desc">Different results, same task → shared Skill or knowledge base</div>
+          </div>
+        </div>
+        <div class="callout callout-blue" style="margin-top:12px;">
+          <strong>Capture the fix:</strong> phrasing that works → standing instruction. Multi-step fix → Skill. Leaving it in a one-off chat means rediscovering it every cycle.
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 8 -->
+    <div class="module-card border-m8 full-width">
+      <div class="card-header">
+        <div class="mod-big-num" style="color:var(--m8);">8</div>
+        <div class="title-block">
+          <div class="module-label">Module 8</div>
+          <h2>Course Summary &amp; Next Steps</h2>
+          <div class="tagline">The arc — and where Associate scope ends</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="two-col" style="gap:20px;">
+          <div>
+            <div class="section-title" style="margin-bottom:12px;">AI Fluency Framework — 4 Competencies</div>
+            <div class="key-points">
+              <div class="key-point"><div class="kp-num d1">D1</div><p><strong>Description</strong> — Telling Claude precisely what you want. Prompting discipline.</p></div>
+              <div class="key-point"><div class="kp-num d2">D2</div><p><strong>Discernment</strong> — Critically evaluating output against requirements, sources, standards.</p></div>
+              <div class="key-point"><div class="kp-num d3">D3</div><p><strong>Diligence</strong> — Owning and verifying output. Accountability does not delegate.</p></div>
+              <div class="key-point"><div class="kp-num d4">D4</div><p><strong>Delegation</strong> — Deciding which steps Claude does, which stay human, which are collaborative.</p></div>
+            </div>
+          </div>
+          <div>
+            <div class="section-title" style="margin-bottom:12px;">The 7-Module Arc</div>
+            <div class="flow-strip" style="flex-direction:column;align-items:flex-start;gap:6px;">
+              <div style="font-size:12px;color:var(--text-dim);">Each skill assumes the one before it.</div>
+              <div class="flow-strip">
+                <div class="flow-item" style="font-size:11px;">M1 Selection</div><div class="flow-arrow">→</div>
+                <div class="flow-item" style="font-size:11px;">M2 Prompting</div><div class="flow-arrow">→</div>
+                <div class="flow-item" style="font-size:11px;">M3 Evaluation</div><div class="flow-arrow">→</div>
+                <div class="flow-item" style="font-size:11px;">M4 Integration</div>
+              </div>
+              <div class="flow-strip">
+                <div class="flow-item" style="font-size:11px;">M5 Configuration</div><div class="flow-arrow">→</div>
+                <div class="flow-item" style="font-size:11px;">M6 Governance</div><div class="flow-arrow">→</div>
+                <div class="flow-item" style="font-size:11px;">M7 Troubleshooting</div>
+              </div>
+            </div>
+            <div class="section-title" style="margin:16px 0 10px;">Certification Boundary</div>
+            <div class="decision-grid">
+              <span class="tag tag-purple">Associate</span><div class="decision-desc">Individual practitioner. Prompt-and-iterate. This course.</div>
+              <span class="tag tag-blue">Developer</span><div class="decision-desc">API, SDKs, agents, tool development. Escalate when prompt-and-iterate is insufficient.</div>
+              <span class="tag tag-green">Architect</span><div class="decision-desc">Enterprise architecture, integration design, governance at scale.</div>
+            </div>
+          </div>
+        </div>
+        <div class="callout callout-purple" style="margin-top:16px;">
+          Recognising the Associate/Developer boundary and escalating across it is itself an Associate-level skill.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end modules-grid -->
+</div>
+
+</body>
+</html>

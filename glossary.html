@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary — Claude Associate PM Prep</title>
+<link rel="stylesheet" href="shared/styles.css">
+<script src="data/glossary.js"></script>
+<style>
+  .glossary-count {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+  }
+  #no-results { display: none; color: var(--text-dim); padding: 20px 0; font-size: 13.5px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand"><span>Claude</span> Associate — PM Prep</span>
+  <div class="nav-links">
+    <a href="index.html">Hub</a>
+    <a href="overview.html">Overview</a>
+    <a href="cheatsheet.html">Cheat Sheet</a>
+    <a href="syntheses.html">Syntheses</a>
+    <a href="glossary.html" class="active">Glossary</a>
+    <a href="exam.html">Exam Trainer</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-text">
+    <div class="eyebrow">Glossary</div>
+    <h1>55 Terms Defined</h1>
+    <p>Every named concept from the course. Search, filter by category, or browse alphabetically.</p>
+  </div>
+  <div class="page-header-actions">
+    <button class="btn-primary" onclick="window.print()">↓ Export PDF</button>
+  </div>
+</div>
+
+<div class="main">
+
+  <input class="search-bar" id="search" type="text" placeholder="Search terms and definitions…" oninput="renderGlossary()">
+
+  <div class="filter-row" id="cat-filter">
+    <div class="filter-chip active" data-cat="" onclick="filterCat(this)">All</div>
+    <div class="filter-chip" data-cat="Entry Points" onclick="filterCat(this)">Entry Points</div>
+    <div class="filter-chip" data-cat="Capability Layer" onclick="filterCat(this)">Capability Layer</div>
+    <div class="filter-chip" data-cat="Models" onclick="filterCat(this)">Models</div>
+    <div class="filter-chip" data-cat="Prompting" onclick="filterCat(this)">Prompting</div>
+    <div class="filter-chip" data-cat="Evaluation" onclick="filterCat(this)">Evaluation</div>
+    <div class="filter-chip" data-cat="Configuration" onclick="filterCat(this)">Configuration</div>
+    <div class="filter-chip" data-cat="Governance" onclick="filterCat(this)">Governance</div>
+    <div class="filter-chip" data-cat="Troubleshooting" onclick="filterCat(this)">Troubleshooting</div>
+  </div>
+
+  <div class="glossary-count" id="glossary-count"></div>
+  <div id="no-results">No terms match your search.</div>
+  <div id="glossary-body"></div>
+
+</div>
+
+<script src="shared/utils.js"></script>
+<script>
+let activeCat = '';
+
+function filterCat(el) {
+  document.querySelectorAll('#cat-filter .filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  activeCat = el.dataset.cat;
+  renderGlossary();
+}
+
+function renderGlossary() {
+  const query = document.getElementById('search').value.toLowerCase().trim();
+  const body = document.getElementById('glossary-body');
+  const noResults = document.getElementById('no-results');
+  const countEl = document.getElementById('glossary-count');
+
+  let terms = [...GLOSSARY];
+  if (activeCat) terms = terms.filter(t => t.category === activeCat);
+  if (query) terms = terms.filter(t =>
+    t.term.toLowerCase().includes(query) || t.definition.toLowerCase().includes(query)
+  );
+
+  terms.sort((a, b) => a.term.localeCompare(b.term));
+
+  if (!terms.length) {
+    body.innerHTML = '';
+    noResults.style.display = 'block';
+    countEl.textContent = '';
+    return;
+  }
+  noResults.style.display = 'none';
+  countEl.textContent = `${terms.length} term${terms.length !== 1 ? 's' : ''}`;
+
+  // Group by letter
+  const byLetter = {};
+  terms.forEach(t => {
+    const letter = t.term[0].toUpperCase();
+    if (!byLetter[letter]) byLetter[letter] = [];
+    byLetter[letter].push(t);
+  });
+
+  body.innerHTML = Object.keys(byLetter).sort().map(letter => `
+    <div class="letter-group">
+      <div class="letter-heading">${letter}</div>
+      ${byLetter[letter].map(t => `
+        <div class="glossary-item">
+          <div class="glossary-term">${t.term}</div>
+          <div class="glossary-def">${t.definition}</div>
+          <span class="module-badge m${t.module}">M${t.module}</span>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+renderGlossary();
+</script>
+</body>
+</html>

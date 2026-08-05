@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Trainer — Claude Associate PM Prep</title>
+<link rel="stylesheet" href="shared/styles.css">
+<script src="data/questions.js"></script>
+<style>
+  /* ── EXAM LAYOUT ── */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  #start-screen { max-width: 600px; margin: 0 auto; padding: 40px 24px 60px; text-align: center; }
+  #start-screen h1 { font-size: 26px; font-weight: 800; color: var(--text-bright); margin-bottom: 8px; letter-spacing: -0.02em; }
+  #start-screen .subtitle { color: var(--text-dim); font-size: 13.5px; margin-bottom: 28px; }
+
+  #exam-screen { max-width: 720px; margin: 0 auto; padding: 28px 24px 60px; }
+  #results-screen { max-width: 680px; margin: 0 auto; padding: 40px 24px 60px; text-align: center; }
+  #review-screen { max-width: 720px; margin: 0 auto; padding: 28px 24px 60px; }
+
+  .exam-topbar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .q-counter { font-size: 12px; font-weight: 700; color: var(--text-dim); white-space: nowrap; }
+  .score-badge { font-size: 12px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+
+  .module-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--surface2);
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+
+  .question-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-bright);
+    line-height: 1.55;
+    margin-bottom: 6px;
+  }
+
+  .multi-hint {
+    font-size: 12px;
+    color: var(--m6);
+    font-weight: 600;
+    margin-bottom: 14px;
+    background: var(--m6-bg);
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+
+  .options-list { margin: 14px 0; }
+  .option { cursor: pointer; }
+  .option.locked { cursor: default; }
+
+  .action-row { display: flex; gap: 10px; align-items: center; margin-top: 16px; }
+
+  /* Results */
+  .result-verdict { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .result-verdict.pass { color: var(--green); }
+  .result-verdict.fail { color: var(--red); }
+  .result-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+  .bc-module { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 4px; }
+  .bc-score { font-size: 22px; font-weight: 800; color: var(--text-bright); }
+  .bc-bar { height: 3px; border-radius: 2px; background: var(--surface2); margin-top: 6px; }
+  .bc-fill { height: 100%; border-radius: 2px; }
+
+  /* Review */
+  #review-screen h2 { font-size: 20px; font-weight: 700; color: var(--text-bright); margin-bottom: 20px; }
+  .ri-status { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .ri-correct { background: var(--m4-bg); color: var(--green); border: 1.5px solid var(--green); }
+  .ri-wrong   { background: var(--m3-bg); color: var(--red); border: 1.5px solid var(--red); }
+  .ri-module-tag { font-size: 10px; color: var(--text-dim); background: var(--surface2); border-radius: 4px; padding: 2px 7px; flex-shrink: 0; }
+
+  /* Export results */
+  .export-results-btn { font-size: 12px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand"><span>Claude</span> Associate — PM Prep</span>
+  <div class="nav-links">
+    <a href="index.html">Hub</a>
+    <a href="overview.html">Overview</a>
+    <a href="cheatsheet.html">Cheat Sheet</a>
+    <a href="syntheses.html">Syntheses</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="exam.html" class="active">Exam Trainer</a>
+  </div>
+</nav>
+
+<!-- ═══ START SCREEN ═══ -->
+<div id="start-screen" class="screen active">
+  <div style="font-size:36px;margin-bottom:14px;">🎓</div>
+  <h1>Exam Trainer</h1>
+  <p class="subtitle">60 scenario-based questions across all 8 modules. Same format and difficulty as the real exam. Pass threshold: <strong>72/100</strong>.</p>
+
+  <div style="font-size:12px;color:var(--text-dim);margin-bottom:14px;font-weight:600;">Select training mode</div>
+  <div class="mode-grid" style="margin-bottom:20px;">
+    <div class="mode-card selected" onclick="selectMode(this,'full')">
+      <h3>📋 Full Exam</h3>
+      <p>All 60 questions, exam conditions, final score with module breakdown</p>
+    </div>
+    <div class="mode-card" onclick="selectMode(this,'quick')">
+      <h3>⚡ Quick Drill</h3>
+      <p>20 random questions for a fast practice session</p>
+    </div>
+    <div class="mode-card" onclick="selectMode(this,'module')">
+      <h3>📂 By Module</h3>
+      <p>Focus on questions from one or more specific modules</p>
+    </div>
+    <div class="mode-card" onclick="selectMode(this,'weak')">
+      <h3>🎯 Weak Spots</h3>
+      <p>Questions you got wrong or skipped in previous sessions</p>
+    </div>
+  </div>
+
+  <div id="module-filter" class="filter-row" style="display:none;justify-content:center;margin-bottom:20px;">
+    <div class="filter-chip active" data-m="1" onclick="toggleModule(this)">M1</div>
+    <div class="filter-chip" data-m="2" onclick="toggleModule(this)">M2</div>
+    <div class="filter-chip" data-m="3" onclick="toggleModule(this)">M3</div>
+    <div class="filter-chip" data-m="4" onclick="toggleModule(this)">M4</div>
+    <div class="filter-chip" data-m="5" onclick="toggleModule(this)">M5</div>
+    <div class="filter-chip" data-m="6" onclick="toggleModule(this)">M6</div>
+    <div class="filter-chip" data-m="7" onclick="toggleModule(this)">M7</div>
+    <div class="filter-chip" data-m="8" onclick="toggleModule(this)">M8</div>
+  </div>
+
+  <button class="btn-primary" onclick="startExam()" style="font-size:15px;padding:12px 36px;">Start Training →</button>
+</div>
+
+<!-- ═══ EXAM SCREEN ═══ -->
+<div id="exam-screen" class="screen">
+  <div class="exam-topbar">
+    <div class="q-counter" id="q-counter">1 / 60</div>
+    <div class="progress-bar-outer" style="flex:1;">
+      <div class="progress-bar-inner" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="score-badge" id="score-badge">Score: 0</div>
+  </div>
+
+  <div id="module-tag" class="module-tag">Module 1</div>
+  <div class="question-text" id="question-text"></div>
+  <div class="multi-hint" id="multi-hint" style="display:none;">Select all that apply</div>
+  <div class="options-list" id="options-list"></div>
+
+  <div class="feedback-box" id="feedback-box">
+    <div class="fb-title" id="fb-title"></div>
+    <div class="fb-explanation" id="fb-explanation"></div>
+  </div>
+
+  <div class="action-row">
+    <button class="btn-primary" id="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+    <button class="btn-primary" id="next-btn" onclick="nextQuestion()" style="display:none;">Next →</button>
+    <button class="btn-secondary" onclick="skipQuestion()">Skip</button>
+  </div>
+</div>
+
+<!-- ═══ RESULTS SCREEN ═══ -->
+<div id="results-screen" class="screen">
+  <div class="score-ring" id="score-ring">
+    <div class="ring-pct" id="final-score">0</div>
+    <div class="ring-label">/ 100</div>
+  </div>
+  <div class="result-verdict" id="result-verdict">—</div>
+  <div class="result-sub" id="result-sub"></div>
+  <div class="breakdown-grid" id="result-breakdown"></div>
+  <div class="results-actions" style="margin-top:24px;">
+    <button class="btn-primary" onclick="showReview()">Review Answers</button>
+    <button class="btn-secondary" onclick="exportResults()">↓ Export Results</button>
+    <button class="btn-secondary" onclick="showStart()">New Session</button>
+  </div>
+</div>
+
+<!-- ═══ REVIEW SCREEN ═══ -->
+<div id="review-screen" class="screen">
+  <h2>Answer Review</h2>
+  <div id="review-list"></div>
+  <div style="margin-top:16px;display:flex;gap:10px;">
+    <button class="btn-secondary" onclick="showResults()">← Back to Results</button>
+    <button class="btn-secondary" onclick="showStart()">New Session</button>
+  </div>
+</div>
+
+<script src="shared/utils.js"></script>
+<script>
+
+const MODULE_COLORS_HEX = ['','#037c0f','#1a5e8a','#9b3a1a','#2a6e5a','#7a5c0a','#5c2d6e','#1a5a6e','#3a3a3a'];
+
+let mode = 'full';
+let selectedModules = [1];
+let queue = [];
+let current = 0;
+let score = 0;
+let answered = 0;
+let selected = [];
+let locked = false;
+let history = [];
+let weakIds = getWeak();
+
+function selectMode(el, m) {
+  mode = m;
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('module-filter').style.display = m === 'module' ? 'flex' : 'none';
+}
+
+function toggleModule(el) {
+  if (el.classList.contains('active')) {
+    const active = document.querySelectorAll('#module-filter .filter-chip.active');
+    if (active.length > 1) el.classList.remove('active');
+  } else {
+    el.classList.add('active');
+  }
+}
+
+function startExam() {
+  history = []; score = 0; answered = 0; current = 0; selected = []; locked = false;
+
+  if (mode === 'full') {
+    queue = shuffle(ALL_QUESTIONS);
+  } else if (mode === 'quick') {
+    queue = shuffle(ALL_QUESTIONS).slice(0, 20);
+  } else if (mode === 'module') {
+    const mods = [...document.querySelectorAll('#module-filter .filter-chip.active')].map(c => parseInt(c.dataset.m));
+    queue = shuffle(ALL_QUESTIONS.filter(q => mods.includes(q.module)));
+    if (!queue.length) { alert('No questions for selected modules.'); return; }
+  } else if (mode === 'weak') {
+    weakIds = getWeak();
+    if (!weakIds.length) { alert('No weak spots yet. Complete a session first.'); return; }
+    const weakSet = new Set(weakIds);
+    queue = shuffle(ALL_QUESTIONS.filter((q, i) => weakSet.has(i)));
+    if (!queue.length) { alert('No matching weak-spot questions found.'); return; }
+  }
+
+  showScreen('exam-screen');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = queue[current];
+  document.getElementById('q-counter').textContent = `${current + 1} / ${queue.length}`;
+  document.getElementById('progress-fill').style.width = `${(current / queue.length) * 100}%`;
+  document.getElementById('score-badge').textContent = `Score: ${score}`;
+  document.getElementById('module-tag').textContent = q.tag;
+  document.getElementById('question-text').innerHTML =
+    `${q.q}<span class="question-type-badge ${q.type === 'single' ? 'single-badge' : 'multi-badge'}">${q.type === 'single' ? 'Single choice' : 'Multi-select'}</span>`;
+  document.getElementById('multi-hint').style.display = q.type === 'multi' ? 'block' : 'none';
+
+  selected = []; locked = false;
+
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  const letters = ['A','B','C','D','E'];
+  q.options.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.dataset.i = i;
+    div.innerHTML = `<div class="option-letter">${letters[i]}</div><div>${opt}</div>`;
+    div.onclick = () => toggleOption(div, i, q);
+    list.appendChild(div);
+  });
+
+  const fb = document.getElementById('feedback-box');
+  fb.className = 'feedback-box';
+  document.getElementById('submit-btn').style.display = 'inline-flex';
+  document.getElementById('next-btn').style.display = 'none';
+}
+
+function toggleOption(el, i, q) {
+  if (locked) return;
+  if (q.type === 'single') {
+    selected = [i];
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  } else {
+    if (selected.includes(i)) {
+      selected = selected.filter(x => x !== i);
+      el.classList.remove('selected');
+    } else {
+      selected.push(i);
+      el.classList.add('selected');
+    }
+  }
+}
+
+function submitAnswer() {
+  if (!selected.length) return;
+  const q = queue[current];
+  locked = true;
+
+  const isCorrect = q.correct.slice().sort().join(',') === selected.slice().sort().join(',');
+  if (isCorrect) score++;
+  answered++;
+
+  document.querySelectorAll('.option').forEach(o => {
+    const i = parseInt(o.dataset.i);
+    o.classList.add('locked');
+    if (q.correct.includes(i) && selected.includes(i)) o.classList.add('correct');
+    else if (selected.includes(i) && !q.correct.includes(i)) o.classList.add('wrong');
+    else if (q.correct.includes(i) && !selected.includes(i)) o.classList.add('missed');
+  });
+
+  const origIdx = ALL_QUESTIONS.findIndex(x => x.q === q.q);
+  history.push({ q, chosen: selected.slice(), correct: q.correct, result: isCorrect, origIdx });
+
+  if (!isCorrect) addWeak(origIdx);
+  else removeWeak(origIdx);
+
+  const fb = document.getElementById('feedback-box');
+  fb.className = 'feedback-box show ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
+  document.getElementById('fb-title').textContent = isCorrect ? '✓ Correct' : '✗ Incorrect';
+  document.getElementById('fb-explanation').innerHTML = q.explanation;
+
+  document.getElementById('submit-btn').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'inline-flex';
+}
+
+function skipQuestion() {
+  if (locked) { nextQuestion(); return; }
+  const q = queue[current];
+  const origIdx = ALL_QUESTIONS.findIndex(x => x.q === q.q);
+  history.push({ q, chosen: [], correct: q.correct, result: false, origIdx });
+  answered++;
+  addWeak(origIdx);
+  if (current + 1 >= queue.length) { showResults(); return; }
+  current++;
+  renderQuestion();
+}
+
+function nextQuestion() {
+  if (current + 1 >= queue.length) { showResults(); return; }
+  current++;
+  renderQuestion();
+}
+
+function showResults() {
+  showScreen('results-screen');
+  const total = queue.length;
+  const pct = Math.round((score / total) * 100);
+  document.getElementById('final-score').textContent = pct;
+
+  const isPassing = pct >= 72;
+  const ring = document.getElementById('score-ring');
+  ring.className = 'score-ring ' + (isPassing ? 'pass' : 'fail');
+
+  const verd = document.getElementById('result-verdict');
+  verd.textContent = isPassing ? 'PASS ✓' : 'NOT YET — keep drilling';
+  verd.className = 'result-verdict ' + (isPassing ? 'pass' : 'fail');
+  document.getElementById('result-sub').textContent = `${score} of ${total} correct · ${pct}/100 · Pass threshold: 72/100`;
+
+  const breakdown = {};
+  history.forEach(h => {
+    const m = h.q.module;
+    if (!breakdown[m]) breakdown[m] = { correct: 0, total: 0, tag: h.q.tag };
+    breakdown[m].total++;
+    if (h.result) breakdown[m].correct++;
+  });
+  const bd = document.getElementById('result-breakdown');
+  bd.innerHTML = '';
+  Object.entries(breakdown).sort((a,b) => +a[0] - +b[0]).forEach(([m, d]) => {
+    const p = Math.round((d.correct / d.total) * 100);
+    const color = MODULE_COLORS_HEX[+m] || '#5b3ff0';
+    bd.innerHTML += `
+      <div class="breakdown-card">
+        <div class="bc-module">M${m} · ${d.tag.split('·')[1]?.trim() || ''}</div>
+        <div class="bc-score">${p}%</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-bottom:4px;">${d.correct}/${d.total} correct</div>
+        <div class="bc-bar"><div class="bc-fill" style="width:${p}%;background:${color}"></div></div>
+      </div>`;
+  });
+}
+
+function showReview() {
+  showScreen('review-screen');
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  const letters = ['A','B','C','D','E'];
+  history.forEach((h, i) => {
+    const chosenLabels = h.chosen.length ? h.chosen.map(x => letters[x]).join(', ') : 'Skipped';
+    const correctLabels = h.correct.map(x => letters[x]).join(', ');
+    const isCorrect = h.result;
+    list.innerHTML += `
+      <div class="review-item">
+        <div class="ri-header">
+          <div class="ri-status ${isCorrect ? 'ri-correct' : 'ri-wrong'}">${isCorrect ? '✓' : '✗'}</div>
+          <div class="ri-q" style="flex:1;font-size:13px;font-weight:600;color:var(--text-bright);">Q${i+1}: ${h.q.q.substring(0,90)}${h.q.q.length > 90 ? '…' : ''}</div>
+          <div class="ri-module-tag">${h.q.tag.split('·')[0].trim()}</div>
+        </div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">
+          Your answer: <strong style="color:${isCorrect ? 'var(--green)' : 'var(--red)'}">${chosenLabels}</strong>
+          &nbsp;·&nbsp; Correct: <strong style="color:var(--green)">${correctLabels}</strong>
+        </div>
+        <div class="ri-explanation">${h.q.explanation}</div>
+      </div>`;
+  });
+}
+
+function exportResults() {
+  const total = queue.length;
+  const pct = Math.round((score / total) * 100);
+  const lines = [
+    'CLAUDE ASSOCIATE — EXAM RESULTS',
+    `Score: ${score}/${total} (${pct}/100) · Pass threshold: 72/100`,
+    `Result: ${pct >= 72 ? 'PASS' : 'NOT PASSING'}`,
+    '',
+    'ANSWERS:',
+    ...history.map((h, i) => {
+      const letters = ['A','B','C','D','E'];
+      const chosen = h.chosen.length ? h.chosen.map(x => letters[x]).join(',') : 'SKIP';
+      const correct = h.correct.map(x => letters[x]).join(',');
+      return `Q${i+1} [${h.result ? 'CORRECT' : 'WRONG  '}] Chosen: ${chosen} | Correct: ${correct} | ${h.q.q.substring(0,60)}`;
+    })
+  ];
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'claude-exam-results.txt';
+  a.click();
+}
+
+function showStart() { showScreen('start-screen'); }
+</script>
+</body>
+</html>

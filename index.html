@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Certified Associate — PM Prep Hub</title>
+<link rel="stylesheet" href="shared/styles.css">
+<style>
+  .hero {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 60px 48px 40px;
+    border-bottom: 2px solid var(--text-bright);
+    margin-bottom: 48px;
+  }
+  .hero .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--text-bright);
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+  .hero p {
+    font-size: 15px;
+    color: var(--text-dim);
+    font-style: italic;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+  .meta-strip {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .meta-item strong {
+    color: var(--text-bright);
+    font-weight: 700;
+  }
+
+  .hub-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+  .hub-section-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--text-bright);
+  }
+
+  /* Override hub-grid for full-width editorial list */
+  .hub-grid {
+    display: block;
+    border-bottom: 1px solid var(--border);
+  }
+  .hub-card {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0 24px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    border-right: none;
+    border-left: none;
+    background: transparent;
+    border-radius: 0;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.1s;
+  }
+  .hub-card:hover { background: var(--accent-bg); padding-left: 8px; padding-right: 8px; margin: 0 -8px; width: calc(100% + 16px); }
+  .hub-card-num {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    grid-row: 1;
+    padding-top: 2px;
+  }
+  .hub-card h2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: -0.01em;
+    grid-row: 1;
+  }
+  .hub-card .hub-arrow {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    grid-row: 1;
+    justify-self: end;
+    align-self: center;
+  }
+  .hub-card p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.55;
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 3px;
+    font-style: italic;
+  }
+  .hub-card-meta {
+    display: none; /* hidden — info is in the description */
+  }
+
+  /* Competencies — ruled list, not boxes */
+  .competencies { margin-top: 52px; }
+  .competency-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0 24px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+  .competency-row:first-child { border-top: 1px solid var(--text-bright); }
+  .comp-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .comp-body { }
+  .comp-name {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-bright);
+    margin-bottom: 2px;
+  }
+  .comp-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-style: italic;
+    line-height: 1.55;
+  }
+
+  @media (max-width: 680px) {
+    .hero { padding: 32px 20px 28px; }
+    .hub-section { padding: 0 20px 48px; }
+    .hub-card { grid-template-columns: 36px 1fr auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand"><span>Claude</span> Associate — PM Prep</span>
+  <div class="nav-links">
+    <a href="index.html" class="active">Hub</a>
+    <a href="overview.html">Overview</a>
+    <a href="cheatsheet.html">Cheat Sheet</a>
+    <a href="syntheses.html">Syntheses</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="exam.html">Exam Trainer</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">Anthropic · Claude Certified Associate · Foundation</div>
+  <h1>PM Prep Hub</h1>
+  <p>Foundation-level study materials for the Claude Certified Associate exam. Six resources covering all 8 modules — from course overview to a 60-question practice exam.</p>
+  <div class="meta-strip">
+    <div class="meta-item"><strong>8</strong> modules</div>
+    <div class="meta-item"><strong>60</strong> practice questions</div>
+    <div class="meta-item"><strong>72/100</strong> pass threshold</div>
+    <div class="meta-item"><strong>42</strong> named frameworks</div>
+    <div class="meta-item"><strong>54</strong> glossary terms</div>
+  </div>
+</div>
+
+<div class="hub-section">
+  <div class="hub-section-label">Study resources</div>
+  <div class="hub-grid">
+
+    <a href="overview.html" class="hub-card">
+      <div class="hub-card-num">01</div>
+      <h2>Course Overview</h2>
+      <div class="hub-arrow">→</div>
+      <p>All 8 modules at a glance — key frameworks, decision models, and concept maps. The fastest way to see the full picture before drilling detail.</p>
+    </a>
+
+    <a href="cheatsheet.html" class="hub-card">
+      <div class="hub-card-num">02</div>
+      <h2>Cheat Sheet</h2>
+      <div class="hub-arrow">→</div>
+      <p>All 42 named frameworks with components and exam notes, plus 22 key definitions. Filter by module. Export to PDF.</p>
+    </a>
+
+    <a href="syntheses.html" class="hub-card">
+      <div class="hub-card-num">03</div>
+      <h2>Module Syntheses</h2>
+      <div class="hub-arrow">→</div>
+      <p>Key insights, exam traps, and the defining quote for each module. What you need to know — not just what the module covers.</p>
+    </a>
+
+    <a href="glossary.html" class="hub-card">
+      <div class="hub-card-num">04</div>
+      <h2>Glossary</h2>
+      <div class="hub-arrow">→</div>
+      <p>54 terms, one definition each. Live search, category filter, alphabetical. Every named concept from the course.</p>
+    </a>
+
+    <a href="exam.html" class="hub-card">
+      <div class="hub-card-num">05</div>
+      <h2>Exam Trainer</h2>
+      <div class="hub-arrow">→</div>
+      <p>60 scenario-based questions across all 8 modules — same format and difficulty as the real exam. Four modes: Full Exam, Quick Drill, Module Focus, Weak Spots. Explanations for every answer. Weak-spot tracking persists across sessions.</p>
+    </a>
+
+  </div>
+
+  <div class="competencies">
+    <div class="hub-section-label">The 4 AI fluency competencies</div>
+    <div class="competency-row">
+      <div class="comp-label" style="color:var(--m1);">D1</div>
+      <div class="comp-body">
+        <div class="comp-name">Description</div>
+        <div class="comp-desc">Telling Claude precisely what you want — the prompting discipline. Module 2.</div>
+      </div>
+    </div>
+    <div class="competency-row">
+      <div class="comp-label" style="color:var(--m2);">D2</div>
+      <div class="comp-body">
+        <div class="comp-name">Discernment</div>
+        <div class="comp-desc">Critically evaluating output against requirements, sources, and professional standards. Module 3.</div>
+      </div>
+    </div>
+    <div class="competency-row">
+      <div class="comp-label" style="color:var(--m4);">D3</div>
+      <div class="comp-body">
+        <div class="comp-name">Diligence</div>
+        <div class="comp-desc">Owning and verifying output before use. Accountability does not transfer to a tool. Modules 3 &amp; 6.</div>
+      </div>
+    </div>
+    <div class="competency-row">
+      <div class="comp-label" style="color:var(--m6);">D4</div>
+      <div class="comp-body">
+        <div class="comp-name">Delegation</div>
+        <div class="comp-desc">Deciding which steps Claude does, which stay human, which are collaborative. Modules 4 &amp; 6.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
