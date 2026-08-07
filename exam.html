@@ -7,83 +7,75 @@
 <link rel="stylesheet" href="shared/styles.css">
 <script src="data/questions.js"></script>
 <style>
-  /* ── EXAM LAYOUT ── */
   .screen { display: none; }
   .screen.active { display: block; }
 
-  #start-screen { max-width: 600px; margin: 0 auto; padding: 40px 24px 60px; text-align: center; }
-  #start-screen h1 { font-size: 26px; font-weight: 800; color: var(--text-bright); margin-bottom: 8px; letter-spacing: -0.02em; }
-  #start-screen .subtitle { color: var(--text-dim); font-size: 13.5px; margin-bottom: 28px; }
-
-  #exam-screen { max-width: 720px; margin: 0 auto; padding: 28px 24px 60px; }
-  #results-screen { max-width: 680px; margin: 0 auto; padding: 40px 24px 60px; text-align: center; }
-  #review-screen { max-width: 720px; margin: 0 auto; padding: 28px 24px 60px; }
-
-  .exam-topbar {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 20px;
+  #start-screen {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
   }
-  .q-counter { font-size: 12px; font-weight: 700; color: var(--text-dim); white-space: nowrap; }
-  .score-badge { font-size: 12px; font-weight: 700; color: var(--accent); white-space: nowrap; }
-
-  .module-tag {
-    display: inline-flex;
-    align-items: center;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 11px;
-    font-weight: 700;
-    background: var(--surface2);
-    color: var(--text-dim);
-    margin-bottom: 14px;
-  }
-
-  .question-text {
-    font-size: 15px;
-    font-weight: 600;
+  #start-screen h1 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
     color: var(--text-bright);
-    line-height: 1.55;
-    margin-bottom: 6px;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  #start-screen .subtitle {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+  .mode-label {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    border-bottom: 1px solid var(--text-bright);
+    padding-bottom: 6px;
+    margin-bottom: 0;
   }
 
-  .multi-hint {
-    font-size: 12px;
-    color: var(--m6);
-    font-weight: 600;
-    margin-bottom: 14px;
-    background: var(--m6-bg);
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 10px;
+  #exam-screen   { max-width: 760px; margin: 0 auto; padding: 0 48px 80px; }
+  #results-screen { max-width: 760px; margin: 0 auto; padding: 0 48px 80px; }
+  #review-screen { max-width: 760px; margin: 0 auto; padding: 0 48px 80px; }
+
+  #review-screen h2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
+    margin-bottom: 24px;
   }
 
-  .options-list { margin: 14px 0; }
-  .option { cursor: pointer; }
-  .option.locked { cursor: default; }
-
-  .action-row { display: flex; gap: 10px; align-items: center; margin-top: 16px; }
-
-  /* Results */
-  .result-verdict { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .result-verdict {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
   .result-verdict.pass { color: var(--green); }
   .result-verdict.fail { color: var(--red); }
-  .result-sub { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
-  .bc-module { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 4px; }
-  .bc-score { font-size: 22px; font-weight: 800; color: var(--text-bright); }
-  .bc-bar { height: 3px; border-radius: 2px; background: var(--surface2); margin-top: 6px; }
-  .bc-fill { height: 100%; border-radius: 2px; }
+  .result-sub {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    margin-bottom: 28px;
+  }
 
-  /* Review */
-  #review-screen h2 { font-size: 20px; font-weight: 700; color: var(--text-bright); margin-bottom: 20px; }
-  .ri-status { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
-  .ri-correct { background: var(--m4-bg); color: var(--green); border: 1.5px solid var(--green); }
-  .ri-wrong   { background: var(--m3-bg); color: var(--red); border: 1.5px solid var(--red); }
-  .ri-module-tag { font-size: 10px; color: var(--text-dim); background: var(--surface2); border-radius: 4px; padding: 2px 7px; flex-shrink: 0; }
-
-  /* Export results */
-  .export-results-btn { font-size: 12px; }
+  @media (max-width: 680px) {
+    #start-screen, #exam-screen, #results-screen, #review-screen {
+      padding: 0 20px 48px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -97,36 +89,42 @@
     <a href="syntheses.html">Syntheses</a>
     <a href="glossary.html">Glossary</a>
     <a href="exam.html" class="active">Exam Trainer</a>
+    <a href="knowledge-drill.html">Knowledge Drill</a>
   </div>
 </nav>
 
+<div class="page-header">
+  <div class="page-header-text">
+    <div class="eyebrow">Exam Trainer</div>
+    <h1>Practice Exam</h1>
+    <p>60 scenario-based questions across all 8 modules. Same format and difficulty as the real exam.</p>
+  </div>
+</div>
+
 <!-- ═══ START SCREEN ═══ -->
 <div id="start-screen" class="screen active">
-  <div style="font-size:36px;margin-bottom:14px;">🎓</div>
-  <h1>Exam Trainer</h1>
-  <p class="subtitle">60 scenario-based questions across all 8 modules. Same format and difficulty as the real exam. Pass threshold: <strong>72/100</strong>.</p>
 
-  <div style="font-size:12px;color:var(--text-dim);margin-bottom:14px;font-weight:600;">Select training mode</div>
-  <div class="mode-grid" style="margin-bottom:20px;">
+  <div class="mode-label">Select training mode</div>
+  <div class="mode-grid">
     <div class="mode-card selected" onclick="selectMode(this,'full')">
-      <h3>📋 Full Exam</h3>
+      <h3>Full Exam</h3>
       <p>All 60 questions, exam conditions, final score with module breakdown</p>
     </div>
     <div class="mode-card" onclick="selectMode(this,'quick')">
-      <h3>⚡ Quick Drill</h3>
+      <h3>Quick Drill</h3>
       <p>20 random questions for a fast practice session</p>
     </div>
     <div class="mode-card" onclick="selectMode(this,'module')">
-      <h3>📂 By Module</h3>
+      <h3>By Module</h3>
       <p>Focus on questions from one or more specific modules</p>
     </div>
     <div class="mode-card" onclick="selectMode(this,'weak')">
-      <h3>🎯 Weak Spots</h3>
+      <h3>Weak Spots</h3>
       <p>Questions you got wrong or skipped in previous sessions</p>
     </div>
   </div>
 
-  <div id="module-filter" class="filter-row" style="display:none;justify-content:center;margin-bottom:20px;">
+  <div id="module-filter" class="filter-row" style="display:none;margin-top:16px;">
     <div class="filter-chip active" data-m="1" onclick="toggleModule(this)">M1</div>
     <div class="filter-chip" data-m="2" onclick="toggleModule(this)">M2</div>
     <div class="filter-chip" data-m="3" onclick="toggleModule(this)">M3</div>
@@ -137,7 +135,9 @@
     <div class="filter-chip" data-m="8" onclick="toggleModule(this)">M8</div>
   </div>
 
-  <button class="btn-primary" onclick="startExam()" style="font-size:15px;padding:12px 36px;">Start Training →</button>
+  <div style="margin-top:28px;">
+    <button class="btn-primary" onclick="startExam()">Start Training →</button>
+  </div>
 </div>
 
 <!-- ═══ EXAM SCREEN ═══ -->
@@ -150,7 +150,7 @@
     <div class="score-badge" id="score-badge">Score: 0</div>
   </div>
 
-  <div id="module-tag" class="module-tag">Module 1</div>
+  <div id="module-tag" class="module-tag"></div>
   <div class="question-text" id="question-text"></div>
   <div class="multi-hint" id="multi-hint" style="display:none;">Select all that apply</div>
   <div class="options-list" id="options-list"></div>
@@ -176,7 +176,7 @@
   <div class="result-verdict" id="result-verdict">—</div>
   <div class="result-sub" id="result-sub"></div>
   <div class="breakdown-grid" id="result-breakdown"></div>
-  <div class="results-actions" style="margin-top:24px;">
+  <div class="results-actions">
     <button class="btn-primary" onclick="showReview()">Review Answers</button>
     <button class="btn-secondary" onclick="exportResults()">↓ Export Results</button>
     <button class="btn-secondary" onclick="showStart()">New Session</button>
@@ -187,7 +187,7 @@
 <div id="review-screen" class="screen">
   <h2>Answer Review</h2>
   <div id="review-list"></div>
-  <div style="margin-top:16px;display:flex;gap:10px;">
+  <div class="action-row">
     <button class="btn-secondary" onclick="showResults()">← Back to Results</button>
     <button class="btn-secondary" onclick="showStart()">New Session</button>
   </div>
@@ -199,7 +199,6 @@
 const MODULE_COLORS_HEX = ['','#037c0f','#1a5e8a','#9b3a1a','#2a6e5a','#7a5c0a','#5c2d6e','#1a5a6e','#3a3a3a'];
 
 let mode = 'full';
-let selectedModules = [1];
 let queue = [];
 let current = 0;
 let score = 0;
@@ -255,7 +254,7 @@ function renderQuestion() {
   document.getElementById('score-badge').textContent = `Score: ${score}`;
   document.getElementById('module-tag').textContent = q.tag;
   document.getElementById('question-text').innerHTML =
-    `${q.q}<span class="question-type-badge ${q.type === 'single' ? 'single-badge' : 'multi-badge'}">${q.type === 'single' ? 'Single choice' : 'Multi-select'}</span>`;
+    `${q.q}<span class="question-type-badge ${q.type === 'single' ? 'single-badge' : 'multi-badge'}">${q.type === 'single' ? 'Single' : 'Multi-select'}</span>`;
   document.getElementById('multi-hint').style.display = q.type === 'multi' ? 'block' : 'none';
 
   selected = []; locked = false;
@@ -307,16 +306,14 @@ function submitAnswer() {
   document.querySelectorAll('.option').forEach(o => {
     const i = parseInt(o.dataset.i);
     o.classList.add('locked');
-    if (q.correct.includes(i) && selected.includes(i)) o.classList.add('correct');
+    if (q.correct.includes(i) && selected.includes(i))       o.classList.add('correct');
     else if (selected.includes(i) && !q.correct.includes(i)) o.classList.add('wrong');
     else if (q.correct.includes(i) && !selected.includes(i)) o.classList.add('missed');
   });
 
   const origIdx = ALL_QUESTIONS.findIndex(x => x.q === q.q);
   history.push({ q, chosen: selected.slice(), correct: q.correct, result: isCorrect, origIdx });
-
-  if (!isCorrect) addWeak(origIdx);
-  else removeWeak(origIdx);
+  if (!isCorrect) addWeak(origIdx); else removeWeak(origIdx);
 
   const fb = document.getElementById('feedback-box');
   fb.className = 'feedback-box show ' + (isCorrect ? 'feedback-correct' : 'feedback-wrong');
@@ -350,13 +347,10 @@ function showResults() {
   const total = queue.length;
   const pct = Math.round((score / total) * 100);
   document.getElementById('final-score').textContent = pct;
-
   const isPassing = pct >= 72;
-  const ring = document.getElementById('score-ring');
-  ring.className = 'score-ring ' + (isPassing ? 'pass' : 'fail');
-
+  document.getElementById('score-ring').className = 'score-ring ' + (isPassing ? 'pass' : 'fail');
   const verd = document.getElementById('result-verdict');
-  verd.textContent = isPassing ? 'PASS ✓' : 'NOT YET — keep drilling';
+  verd.textContent = isPassing ? 'Pass' : 'Not yet — keep drilling';
   verd.className = 'result-verdict ' + (isPassing ? 'pass' : 'fail');
   document.getElementById('result-sub').textContent = `${score} of ${total} correct · ${pct}/100 · Pass threshold: 72/100`;
 
@@ -371,13 +365,13 @@ function showResults() {
   bd.innerHTML = '';
   Object.entries(breakdown).sort((a,b) => +a[0] - +b[0]).forEach(([m, d]) => {
     const p = Math.round((d.correct / d.total) * 100);
-    const color = MODULE_COLORS_HEX[+m] || '#5b3ff0';
+    const color = MODULE_COLORS_HEX[+m] || '#037c0f';
     bd.innerHTML += `
       <div class="breakdown-card">
-        <div class="bc-module">M${m} · ${d.tag.split('·')[1]?.trim() || ''}</div>
+        <div class="bc-module">M${m}</div>
         <div class="bc-score">${p}%</div>
-        <div style="font-size:11px;color:var(--text-dim);margin-bottom:4px;">${d.correct}/${d.total} correct</div>
-        <div class="bc-bar"><div class="bc-fill" style="width:${p}%;background:${color}"></div></div>
+        <div class="bc-count">${d.correct}/${d.total}</div>
+        <div class="bc-bar"><div class="bc-bar-inner" style="width:${p}%;background:${color}"></div></div>
       </div>`;
   });
 }
@@ -390,16 +384,15 @@ function showReview() {
   history.forEach((h, i) => {
     const chosenLabels = h.chosen.length ? h.chosen.map(x => letters[x]).join(', ') : 'Skipped';
     const correctLabels = h.correct.map(x => letters[x]).join(', ');
-    const isCorrect = h.result;
     list.innerHTML += `
       <div class="review-item">
         <div class="ri-header">
-          <div class="ri-status ${isCorrect ? 'ri-correct' : 'ri-wrong'}">${isCorrect ? '✓' : '✗'}</div>
-          <div class="ri-q" style="flex:1;font-size:13px;font-weight:600;color:var(--text-bright);">Q${i+1}: ${h.q.q.substring(0,90)}${h.q.q.length > 90 ? '…' : ''}</div>
+          <div class="ri-status ${h.result ? 'ri-correct' : 'ri-wrong'}">${h.result ? '✓' : '✗'}</div>
+          <div class="ri-q">Q${i+1}: ${h.q.q.substring(0,90)}${h.q.q.length > 90 ? '…' : ''}</div>
           <div class="ri-module-tag">${h.q.tag.split('·')[0].trim()}</div>
         </div>
-        <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">
-          Your answer: <strong style="color:${isCorrect ? 'var(--green)' : 'var(--red)'}">${chosenLabels}</strong>
+        <div style="font-family:-apple-system,sans-serif;font-size:12px;color:var(--text-dim);margin-bottom:6px;">
+          Your answer: <strong style="color:${h.result ? 'var(--green)' : 'var(--red)'}">${chosenLabels}</strong>
           &nbsp;·&nbsp; Correct: <strong style="color:var(--green)">${correctLabels}</strong>
         </div>
         <div class="ri-explanation">${h.q.explanation}</div>
