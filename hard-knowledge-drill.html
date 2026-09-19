@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hard Knowledge Drill — Claude Associate PM Prep</title>
+<link rel="stylesheet" href="shared/styles.css">
+<script src="data/hard-questions.js"></script>
+<style>
+  .screen{display:none}.screen.active{display:block}
+  #start-screen,#drill-screen,#results-screen,#review-screen{max-width:760px;margin:0 auto;padding:0 48px 80px}
+  .assessment-note{font-size:13px;color:var(--text-dim);font-style:italic;line-height:1.65;margin-bottom:24px}
+  .spec-row{display:flex;gap:24px;flex-wrap:wrap;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:13px 0;margin:24px 0}
+  .spec{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:11px;color:var(--text-dim)}.spec strong{color:var(--text-bright)}
+  .drill-topbar{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+  .q-counter,.score-badge,.timer-badge{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:12px;font-weight:700;color:var(--text-dim);white-space:nowrap}.timer-badge{color:var(--accent)}
+  .topic-tag{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-light);margin-bottom:12px}
+  .question-text{font-size:15px;font-weight:600;color:var(--text-bright);line-height:1.65;margin-bottom:8px}.select-hint{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:11px;color:var(--text-dim);margin-bottom:14px;font-style:italic}
+  .q-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin:28px 0}.q-jump{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;height:30px;border:1px solid var(--border);background:transparent;color:var(--text-dim);font-size:10px;cursor:pointer}.q-jump:hover{border-color:var(--accent);color:var(--accent)}.q-jump.answered{background:var(--accent-bg);border-color:var(--accent-border);color:var(--accent)}.q-jump.current{outline:2px solid var(--accent);outline-offset:1px}
+  .result-verdict{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:20px;font-weight:800;margin-bottom:4px}.result-sub{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:12.5px;color:var(--text-dim);margin-bottom:28px}.stats-row{display:flex;gap:32px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;margin-bottom:28px}.stat-num{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:28px;font-weight:900;color:var(--text-bright);line-height:1}.stat-label{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:10px;color:var(--text-light);text-transform:uppercase;letter-spacing:.08em;margin-top:3px}
+  .topic-row{display:grid;grid-template-columns:1fr 2fr 52px;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:11.5px}.topic-bar{height:5px;background:var(--surface2)}.topic-bar>div{height:100%;background:var(--accent)}
+  .review-item{border-bottom:1px solid var(--border);padding:18px 0}.review-item:first-child{border-top:1px solid var(--border)}.ri-head{display:flex;gap:10px;align-items:flex-start;margin-bottom:7px}.ri-status{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-weight:800}.ri-q{font-size:13px;font-weight:600;color:var(--text-bright);line-height:1.5;flex:1}.ri-answer,.ri-exp{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:11.5px;color:var(--text-dim);line-height:1.55;margin-left:22px}.ri-exp{font-family:Georgia,'Times New Roman',serif;font-size:13px;color:var(--text);margin-top:7px}
+  @media(max-width:680px){#start-screen,#drill-screen,#results-screen,#review-screen{padding:0 20px 48px}.q-grid{grid-template-columns:repeat(6,1fr)}.stats-row{gap:18px}.topic-row{grid-template-columns:1fr 50px}.topic-bar{grid-column:1/-1;grid-row:2}.timer-badge{display:none}}
+</style>
+</head>
+<body>
+<nav class="nav"><span class="nav-brand"><span>Claude</span> Associate — PM Prep</span><div class="nav-links"><a href="index.html">Hub</a><a href="overview.html">Overview</a><a href="cheatsheet.html">Cheat Sheet</a><a href="syntheses.html">Syntheses</a><a href="glossary.html">Glossary</a><a href="exam.html">Exam Trainer</a><a href="knowledge-drill.html">Knowledge Drill</a></div></nav>
+<div class="page-header"><div class="page-header-text"><div class="eyebrow">Hard Knowledge Drill</div><h1>Close-call conceptual practice</h1><p>60 difficult questions with plausible distractors. No module-number clues. Designed to test distinctions and judgment, not simple recall.</p></div></div>
+
+<div id="start-screen" class="screen active">
+  <div class="assessment-note">This is an original practice drill, not an official Anthropic exam. The raw percentage is for study feedback and should not be mapped directly to the official scaled score.</div>
+  <div class="spec-row"><div class="spec"><strong>60</strong> questions</div><div class="spec"><strong>120</strong> minutes</div><div class="spec"><strong>48</strong> single-answer</div><div class="spec"><strong>12</strong> select-two</div></div>
+  <ul class="rule-list"><li>Move freely between questions before submitting.</li><li>Your answers auto-save in this browser during the session.</li><li>After submission, review every answer with explanations and topic breakdown.</li></ul>
+  <div style="margin-top:28px"><button class="btn-primary" onclick="startDrill()">Start Hard Drill →</button></div>
+</div>
+
+<div id="drill-screen" class="screen">
+  <div class="drill-topbar"><div class="q-counter" id="q-counter"></div><div class="progress-bar-outer" style="flex:1"><div class="progress-bar-inner" id="progress-fill"></div></div><div class="timer-badge" id="timer">02:00:00</div></div>
+  <div class="topic-tag" id="topic-tag"></div><div class="question-text" id="question-text"></div><div class="select-hint" id="select-hint"></div><div class="options-list" id="options-list"></div>
+  <div class="q-grid" id="q-grid"></div>
+  <div class="action-row"><button class="btn-secondary" onclick="move(-1)">← Previous</button><button class="btn-secondary" onclick="move(1)">Next →</button><button class="btn-primary" onclick="submitDrill(false)">Submit Drill</button></div>
+</div>
+
+<div id="results-screen" class="screen"><div class="result-verdict" id="result-verdict"></div><div class="result-sub" id="result-sub"></div><div class="stats-row" id="stats-row"></div><div class="section-title">Topic breakdown</div><div id="topic-breakdown"></div><div class="action-row" style="margin-top:28px"><button class="btn-primary" onclick="showReview()">Review Answers</button><button class="btn-secondary" onclick="resetDrill()">Restart</button></div></div>
+<div id="review-screen" class="screen"><div class="section-title">Answer review</div><div id="review-list"></div><div class="action-row"><button class="btn-secondary" onclick="showResults()">← Back to Results</button><button class="btn-secondary" onclick="resetDrill()">Restart</button></div></div>
+
+<script src="shared/utils.js"></script>
+<script>
+const QS=HARD_DRILL.questions, KEY='ccaoHardDrill_v2', LETTERS=['A','B','C','D','E','F'];
+let state={started:false,submitted:false,current:0,answers:{},startedAt:null,deadline:null},timerHandle=null;
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');if(x&&x.answers)state=x}catch{}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}}
+function same(a,b){return [...a].sort((x,y)=>x-y).join(',')===[...b].sort((x,y)=>x-y).join(',')}
+function startDrill(){if(!state.started||state.submitted){state={started:true,submitted:false,current:0,answers:{},startedAt:Date.now(),deadline:Date.now()+HARD_DRILL.time_limit_minutes*60000};save()}showScreen('drill-screen');render();startTimer()}
+function render(){const q=QS[state.current],ans=state.answers[q.id]||[];document.getElementById('q-counter').textContent=`${state.current+1} / ${QS.length}`;document.getElementById('progress-fill').style.width=`${QS.filter(x=>(state.answers[x.id]||[]).length).length/QS.length*100}%`;document.getElementById('topic-tag').textContent=q.topic;document.getElementById('question-text').textContent=q.question;document.getElementById('select-hint').textContent=q.type==='multi'?'Select exactly TWO answers.':'Select the best answer.';const list=document.getElementById('options-list');list.innerHTML='';q.options.forEach((opt,i)=>{const d=document.createElement('div');d.className='option'+(ans.includes(i)?' selected':'');d.innerHTML=`<div class="option-letter">${LETTERS[i]}</div><div>${opt}</div>`;d.onclick=()=>choose(q,i);list.appendChild(d)});renderGrid()}
+function choose(q,i){let a=state.answers[q.id]||[];if(q.type==='single')a=[i];else if(a.includes(i))a=a.filter(x=>x!==i);else if(a.length<2)a=[...a,i];else a=[a[1],i];state.answers[q.id]=a;save();render()}
+function move(d){state.current=Math.max(0,Math.min(QS.length-1,state.current+d));save();render();window.scrollTo(0,0)}
+function renderGrid(){const g=document.getElementById('q-grid');g.innerHTML='';QS.forEach((q,i)=>{const b=document.createElement('button');b.className='q-jump'+((state.answers[q.id]||[]).length?' answered':'')+(i===state.current?' current':'');b.textContent=i+1;b.onclick=()=>{state.current=i;save();render();window.scrollTo(0,0)};g.appendChild(b)})}
+function startTimer(){clearInterval(timerHandle);tick();timerHandle=setInterval(tick,1000)}
+function tick(){if(state.submitted)return;const ms=Math.max(0,(state.deadline||Date.now())-Date.now()),s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),ss=s%60;document.getElementById('timer').textContent=[h,m,ss].map(x=>String(x).padStart(2,'0')).join(':');if(ms<=0)submitDrill(true)}
+function submitDrill(auto){if(state.submitted)return;const missing=QS.filter(q=>(state.answers[q.id]||[]).length===0).length;if(!auto&&missing&&!confirm(`${missing} unanswered question${missing===1?'':'s'}. Submit anyway?`))return;if(!auto&&!confirm('Submit and reveal answers?'))return;state.submitted=true;save();clearInterval(timerHandle);renderResults()}
+function renderResults(){showScreen('results-screen');let correct=0;const topics={};QS.forEach(q=>{const ok=same(state.answers[q.id]||[],q.correct);if(ok)correct++;(topics[q.topic]??={c:0,n:0}).n++;if(ok)topics[q.topic].c++});const pct=Math.round(correct/QS.length*100);document.getElementById('result-verdict').textContent=pct>=72?'Strong result':'Keep drilling';document.getElementById('result-sub').textContent=`${correct} of ${QS.length} correct · ${pct}% raw practice score`;document.getElementById('stats-row').innerHTML=`<div><div class="stat-num">${pct}%</div><div class="stat-label">Score</div></div><div><div class="stat-num">${correct}</div><div class="stat-label">Correct</div></div><div><div class="stat-num">${QS.length-correct}</div><div class="stat-label">Incorrect</div></div>`;const bd=document.getElementById('topic-breakdown');bd.innerHTML='';Object.entries(topics).forEach(([name,v])=>{const p=Math.round(v.c/v.n*100);bd.innerHTML+=`<div class="topic-row"><div>${name}</div><div class="topic-bar"><div style="width:${p}%"></div></div><strong>${p}%</strong></div>`})}
+function showReview(){showScreen('review-screen');const l=document.getElementById('review-list');l.innerHTML='';QS.forEach((q,i)=>{const a=state.answers[q.id]||[],ok=same(a,q.correct),chosen=a.length?a.map(x=>LETTERS[x]).join(', '):'Skipped',correct=q.correct.map(x=>LETTERS[x]).join(', ');l.innerHTML+=`<div class="review-item"><div class="ri-head"><div class="ri-status" style="color:${ok?'var(--accent)':'var(--red)'}">${ok?'✓':'✗'}</div><div class="ri-q">Q${i+1}. ${q.question}</div></div><div class="ri-answer">Your answer: <strong>${chosen}</strong> · Correct: <strong>${correct}</strong></div><div class="ri-exp">${q.explanation}</div></div>`})}
+function showResults(){renderResults()}function resetDrill(){if(confirm('Reset this drill and all saved answers?')){localStorage.removeItem(KEY);location.reload()}}
+load();if(state.submitted)renderResults();else if(state.started){showScreen('drill-screen');render();startTimer()}
+</script>
+</body>
+</html>
